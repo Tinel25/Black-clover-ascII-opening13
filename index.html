@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tinel25</title>
+  <style>
+    body {
+      font-size: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      background-color: black;
+      color: white;
+      font-family: monospace;
+      white-space: pre;
+      overflow: hidden;
+      margin: 0;
+    }
+
+    #ascii-display {
+      white-space: pre;
+      text-align: center;
+    }
+
+    #start-button {
+      margin-bottom: 20px;
+      padding: 20px 40px;
+      background-color: #444;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 24px;
+      z-index: 10;
+    }
+
+    #start-button:hover {
+      background-color: #666;
+    }
+  </style>
+  <script src="output/ascii_frames.js"></script>
+</head>
+<body>
+  <button id="start-button">▶ Start </button>
+  <div id="ascii-display"></div>
+  <audio id="background-music" src="clover_opening13.mp3" preload="auto" loop></audio>
+  <script>
+    let currentFrame = 0;
+    const displayElement = document.getElementById('ascii-display');
+    const audioElement = document.getElementById('background-music');
+    const startButton = document.getElementById('start-button');
+
+    function showNextFrame() {
+      displayElement.textContent = frames[currentFrame];
+      currentFrame = (currentFrame + 1) % frames.length;
+    }
+
+    function startPlayback() {
+      audioElement.play();
+      setInterval(showNextFrame, 100); // 10 fps
+      startButton.style.display = 'none';
+    }
+
+    startButton.addEventListener('click', startPlayback);
+  </script>
+</body>
+</html>
